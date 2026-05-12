@@ -16,6 +16,21 @@ MCP server providing scholarly, offline-first access to the Quran with 5 classic
 4. Parametrized SQL only. Use ? placeholders. Never f-string SQL.
 5. All Quranic ayah counts MUST validate against 6236 total ayahs and 114 surahs.
 
+## FastMCP Parameter Pattern (Critical Bug Avoidance)
+**NEVER** write `param: int = Field(ge=1, le=114, default=1)` in tool/prompt functions.
+The `Field()` object becomes the default value (FieldInfo) instead of the integer — silent bug.
+
+**ALWAYS** use `Annotated` with a separate Python default:
+```python
+# ✅ CORRECT
+from typing import Annotated
+param: Annotated[int, Field(ge=1, le=114)] = 1
+
+# ❌ WRONG — passes FieldInfo to SQLite, causes ProgrammingError
+param: int = Field(ge=1, le=114, default=1)
+```
+Required params (no default): `param: Annotated[int, Field(ge=1, le=114)]` — no `= value`.
+
 ## Database Schema
 File: data/quran.db (read-only, SQLite 3.x, ~215 MB)
 

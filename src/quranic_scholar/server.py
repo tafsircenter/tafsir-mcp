@@ -1,7 +1,9 @@
-"""FastMCP entry point for Quranic Scholar MCP Server — 12 tools."""
+"""FastMCP entry point for Quranic Scholar MCP Server — 13 tools, 3 resources, 5 prompts."""
 
 from mcp.server.fastmcp import FastMCP
 
+from quranic_scholar.prompts import study as study_prompts
+from quranic_scholar.resources import catalogs
 from quranic_scholar.tools import ayah as ayah_tools
 from quranic_scholar.tools import qeraat as qeraat_tools
 from quranic_scholar.tools import search as search_tools
@@ -13,7 +15,8 @@ mcp = FastMCP(
     "Quranic Scholar",
     instructions=(
         "خادم MCP للوصول العلمي إلى القرآن الكريم بلا اتصال بالإنترنت. "
-        "يوفر 12 أداة:\n"
+        "يوفر 13 أداة + 3 موارد + 5 قوالب دراسة.\n\n"
+        "الأدوات:\n"
         "• fetch_ayah — نص آية بالرسم العثماني مع تجويد/إعراب اختياري\n"
         "• fetch_tafsir — تفاسير الطبري/ابن كثير/البغوي/السعدي/الميسر والمختصر\n"
         "• fetch_nuzool_reason — سبب نزول الآية إن ثبت\n"
@@ -26,17 +29,45 @@ mcp = FastMCP(
         "• search_in_tafsir — بحث في متن تفسير محدد\n"
         "• get_quran_overview — إحصاءات عامة للقرآن\n"
         "• get_page_fawaed — فوائد صفحة من المصحف\n"
-        "• get_surah_statistics — إحصاءات مفصّلة لسورة\n"
+        "• get_surah_statistics — إحصاءات مفصّلة لسورة\n\n"
+        "الموارد:\n"
+        "• quran://surahs — فهرس 114 سورة\n"
+        "• quran://tafsirs — فهرس 8 مصادر تفسيرية\n"
+        "• quran://schema — توثيق مخطط قاعدة البيانات\n\n"
+        "القوالب: study_ayah، compare_tafsirs، root_study، surah_overview، tajweed_lesson\n\n"
         "جميع النصوص تُعاد حرفياً من قاعدة البيانات بدون تلخيص أو تعديل."
     ),
 )
 
+# ── Tools ─────────────────────────────────────────────────────────────────────
 ayah_tools.register(mcp)
 surah_tools.register(mcp)
 word_tools.register(mcp)
 qeraat_tools.register(mcp)
 search_tools.register(mcp)
 stats_tools.register(mcp)
+
+# ── Resources ─────────────────────────────────────────────────────────────────
+@mcp.resource("quran://surahs")
+def surahs_catalog() -> str:
+    """فهرس 114 سورة مع البيانات الأساسية (JSON)."""
+    return catalogs.get_surahs_catalog()
+
+
+@mcp.resource("quran://tafsirs")
+def tafsirs_catalog() -> str:
+    """فهرس 8 مصادر تفسيرية مع كامل بيانات الإسناد (JSON)."""
+    return catalogs.get_tafsirs_catalog()
+
+
+@mcp.resource("quran://schema")
+def schema_documentation() -> str:
+    """مرجع مخطط قاعدة البيانات للمطورين (Markdown)."""
+    return catalogs.get_schema_documentation()
+
+
+# ── Prompts ───────────────────────────────────────────────────────────────────
+study_prompts.register(mcp)
 
 
 def main() -> None:
