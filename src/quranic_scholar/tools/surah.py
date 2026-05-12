@@ -56,4 +56,4 @@ def get_surah_info(
 
 
 def register(mcp: FastMCP) -> None:
-    mcp.tool(annotations=_ANNOTATIONS)(get_surah_info)
+    mcp.tool(name="fetch_surah_info", annotations=_ANNOTATIONS)(get_surah_info)

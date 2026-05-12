@@ -166,5 +166,6 @@ def get_ayah_nuzool(surah: int, ayah: int) -> dict:
 
 
 def register(mcp: FastMCP) -> None:
-    for fn in (get_ayah, get_ayah_tafsir, get_ayah_nuzool):
-        mcp.tool(annotations=_ANNOTATIONS)(fn)
+    mcp.tool(name="fetch_ayah", annotations=_ANNOTATIONS)(get_ayah)
+    mcp.tool(name="fetch_tafsir", annotations=_ANNOTATIONS)(get_ayah_tafsir)
+    mcp.tool(name="fetch_nuzool_reason", annotations=_ANNOTATIONS)(get_ayah_nuzool)

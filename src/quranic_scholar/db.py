@@ -6,6 +6,10 @@ from pathlib import Path
 
 DEFAULT_DB_PATH: str = os.environ.get("QURAN_DB_PATH", "data/quran.db")
 
+# Tafsir tables use (sura, aya); all other tables use (surahNo, ayahNo)
+TAFSIR_KEYS = ("sura", "aya")
+STANDARD_KEYS = ("surahNo", "ayahNo")
+
 
 class QuranDataError(Exception):
     """يُرفع عند خطأ في قاعدة بيانات القرآن."""
