@@ -4,14 +4,14 @@ import json
 
 import pytest
 
-from quranic_scholar.prompts.study import (
+from tafsir.prompts.study import (
     compare_tafsirs,
     root_study,
     study_ayah,
     surah_overview,
     tajweed_lesson,
 )
-from quranic_scholar.resources.catalogs import (
+from tafsir.resources.catalogs import (
     get_schema_documentation,
     get_surahs_catalog,
     get_tafsirs_catalog,

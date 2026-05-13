@@ -2,10 +2,10 @@
 
 import pytest
 
-from quranic_scholar.tools.word import get_root_statistics, get_word_analysis, search_by_root
-from quranic_scholar.tools.qeraat import compare_qeraat
-from quranic_scholar.tools.search import search_quran_text, search_tafsir
-from quranic_scholar.tools.stats import (
+from tafsir.tools.word import get_root_statistics, get_word_analysis, search_by_root
+from tafsir.tools.qeraat import compare_qeraat
+from tafsir.tools.search import search_quran_text, search_tafsir
+from tafsir.tools.stats import (
     get_page_fawaed,
     get_quran_statistics,
     get_surah_statistics_summary,

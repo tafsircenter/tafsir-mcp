@@ -1,147 +1,140 @@
-# Quranic Scholar MCP Server
+<div align="center">
 
-خادم MCP يمنح Claude Desktop وصولاً علمياً وحرفياً إلى القرآن الكريم بلا اتصال بالإنترنت.
+# 🕌 Tafsir MCP
 
-An MCP server giving Claude Desktop offline scholarly access to the Holy Quran.
+**خادم MCP العلمي للقرآن الكريم — برعاية مركز تفسير للدراسات القرآنية**
 
----
+[![PyPI](https://img.shields.io/pypi/v/tafsir-mcp.svg)](https://pypi.org/project/tafsir-mcp/)
+[![License](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
+[![Data License](https://img.shields.io/badge/data-CC%20BY%204.0-green.svg)](LICENSE-DATA)
+[![MCP](https://img.shields.io/badge/MCP-2025--11--25-purple.svg)](https://modelcontextprotocol.io)
+[![Tafsir Center](https://img.shields.io/badge/sponsor-Markaz%20Tafsir-darkgreen.svg)](https://tafsir.net)
 
-## المحتوى / Contents
+[العربية](#arabic) · [English](#english)
 
-| | العربية | English |
-|---|---|---|
-| **التفاسير** | الطبري، ابن كثير، البغوي، السعدي، الميسر، المختصر (ع/ن/بنغالية) | 5 classical Arabic tafsirs + trilingual Mukhtasar |
-| **التحليل اللغوي** | إعراب ومعنى وصرف لكل كلمة (77,432 كلمة) | Word-level i'rab, meaning, sarf (77,432 words) |
-| **البحث** | FTS5 بدون تشكيل + بحث في متون التفاسير | Diacritic-free FTS5 + tafsir LIKE search |
-| **القراءات** | قراءات القرآن العشر (مخزّنة بصيغة @قارئ/نص@) | Qira'at variants in @reader/text@ format |
-| **الإحصاءات** | إحصاءات السور، الجذور، الصفحات | Surah stats, root stats, page fawaed |
-| **أسباب النزول** | 201 آية لها بيانات | Asbab al-nuzool for 201 ayahs |
+</div>
 
 ---
 
-## المتطلبات / Requirements
+<a id="arabic"></a>
 
-- Python 3.12+
-- [uv](https://docs.astral.sh/uv/) package manager
-- Claude Desktop (for MCP integration)
-- قاعدة البيانات `data/quran.db` (~224 MB) — غير مضمّنة في المستودع
+## 🌙 نبذة
+
+خادم **Model Context Protocol (MCP)** يوفّر وصولاً علمياً موثّقاً للقرآن الكريم لأي مساعد ذكي يدعم MCP (Claude Code، Claude Desktop، VS Code، وغيرها).
+
+كل البيانات مراجعة ومعتمدة من **[مركز تفسير للدراسات القرآنية](https://tafsir.net)**.
 
 ---
 
-## التثبيت / Installation
+## ✨ المميزات
 
+- 📖 **6,236 آية** كاملة بالرسم العثماني
+- 📚 **5 تفاسير كلاسيكية**: الطبري · ابن كثير · البغوي · السعدي · الميسر
+- 🌍 **المختصر في التفسير** بـ3 لغات (عربي، إنجليزي، بنغالي)
+- 🔤 **77,432 كلمة** بتحليل لغوي شامل (إعراب، صرف، جذر، رسم)
+- 🔍 **1,891 جذر** قابل للبحث والإحصاء
+- ⚡ **بحث FTS5** سريع مع تطبيع عربي كامل (بدون تشكيل)
+- 🎵 **اختلاف القراءات** لكل آية وكلمة
+- 📜 **أسباب النزول** بالإسناد الكامل (201 آية)
+- 📊 **إحصاءات تفصيلية** لكل سورة وصفحة مصحف
+- 🛡️ **حماية صارمة** من الهلوسة (Pydantic v2 validation)
+- 📴 **يعمل دون إنترنت** بعد التثبيت
+
+---
+
+## 🚀 التثبيت السريع
+
+### لمستخدمي Claude Code:
 ```bash
-git clone https://github.com/your-username/quranic-scholar-mcp
-cd quranic-scholar-mcp
+claude mcp add tafsir --scope user -- uvx tafsir-mcp
+```
 
-# ضع قاعدة البيانات في مجلد data/
-cp /path/to/quran.db data/quran.db
+### للتثبيت اليدوي:
+```bash
+pip install tafsir-mcp
+# أو
+uvx tafsir-mcp
+```
 
-# ثبّت المتطلبات
+عند أول تشغيل، سيُحمَّل ملف البيانات (~214 MB) من Hugging Face تلقائياً ويُخزَّن في `~/.cache/tafsir-mcp/`.
+
+### للمطوّرين (من المصدر):
+```bash
+git clone https://github.com/ah-vb-cod/tafsir-mcp
+cd tafsir-mcp
+cp /path/to/quran.db data/quran.db   # أو: export TAFSIR_DB_PATH=/path/to/quran.db
 uv sync
+uv run tafsir-mcp
 ```
 
 ---
 
-## ربط Claude Desktop / Claude Desktop Setup
+## 🔧 ربط Claude Desktop
 
-أضف الخادم إلى ملف إعدادات Claude Desktop:
-
-**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+أضف إلى `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
-    "quranic-scholar": {
+    "tafsir": {
       "command": "uv",
       "args": [
         "--directory",
         "/Users/YOUR_USERNAME/projects/quranic-scholar-mcp",
         "run",
-        "quranic-scholar-mcp"
+        "tafsir-mcp"
       ]
     }
   }
 }
 ```
 
-استبدل `YOUR_USERNAME` باسم المستخدم الفعلي، ثم أعد تشغيل Claude Desktop.
+---
+
+## 🧰 الأدوات المتاحة (13 أداة)
+
+| الفئة | الأداة | الوصف |
+|---|---|---|
+| **الآية** | `fetch_ayah` | نص آية بالرسم العثماني، مع تجويد/إعراب اختياري |
+| | `fetch_tafsir` | تفسير من 8 مصادر (تفاسير متعددة بطلب واحد) |
+| | `fetch_nuzool_reason` | سبب النزول بالإسناد الكامل |
+| **السورة** | `fetch_surah_info` | معلومات شاملة: أهداف، فضائل، نزول |
+| | `get_surah_statistics` | إحصاءات: كلمات، حروف، أطول كلمة... |
+| **الكلمة** | `analyze_word` | إعراب، صرف، معنى، جذر، قراءات |
+| | `find_root_occurrences` | كل مواضع جذر في القرآن |
+| | `get_root_stats` | إحصاءات جذر: سور، آيات، أوزان |
+| **البحث** | `search_quran_text` | بحث FTS5 بدون تشكيل |
+| | `search_in_tafsir` | بحث LIKE في متن تفسير محدد |
+| **القراءات** | `get_qeraat_variants` | اختلاف القراءات لآية أو كلمة |
+| **عام** | `get_quran_overview` | إحصاءات شاملة للقرآن |
+| | `get_page_fawaed` | فوائد صفحة من المصحف |
 
 ---
 
-## الأدوات / Tools (13)
+## 📋 الموارد والقوالب
 
-### نصوص الآيات / Ayah Text
-
-| الأداة | الوصف |
-|--------|-------|
-| `fetch_ayah` | نص الآية بالرسم العثماني، مع تجويد/إعراب اختياري |
-| `fetch_tafsir` | تفسير آية من مصدر محدد |
-| `fetch_nuzool_reason` | سبب نزول الآية (إن وُجد) |
-
-### السور / Surahs
-
-| الأداة | الوصف |
-|--------|-------|
-| `fetch_surah_info` | معلومات كاملة عن السورة |
-
-### تحليل الكلمات / Word Analysis
-
-| الأداة | الوصف |
-|--------|-------|
-| `analyze_word` | تحليل كلمة: معنى، إعراب، صرف، إحصاء، قراءات |
-| `find_root_occurrences` | جميع مواضع جذر في القرآن |
-| `get_root_stats` | إحصاءات جذر: سور، آيات، أوزان |
-
-### القراءات / Qira'at
-
-| الأداة | الوصف |
-|--------|-------|
-| `get_qeraat_variants` | القراءات المختلفة لآية أو كلمة |
-
-### البحث / Search
-
-| الأداة | الوصف |
-|--------|-------|
-| `search_quran_text` | بحث نصي FTS5 بدون تشكيل |
-| `search_in_tafsir` | بحث LIKE في متن تفسير محدد |
-
-### الإحصاءات / Statistics
-
-| الأداة | الوصف |
-|--------|-------|
-| `get_quran_overview` | إحصاءات عامة (سور، آيات، كلمات، جذور) |
-| `get_page_fawaed` | فوائد صفحة من المصحف |
-| `get_surah_statistics` | إحصاءات مفصّلة لسورة |
-
----
-
-## الموارد / Resources (3)
-
+### الموارد (Resources)
 | المورد | الوصف |
 |--------|-------|
 | `quran://surahs` | فهرس 114 سورة (JSON) |
 | `quran://tafsirs` | فهرس 8 مصادر تفسيرية مع الإسناد (JSON) |
 | `quran://schema` | توثيق مخطط قاعدة البيانات (Markdown) |
 
----
-
-## قوالب الدراسة / Study Prompts (5)
-
+### قوالب الدراسة (Prompts)
 | القالب | الوصف |
 |--------|-------|
-| `study_ayah(surah, ayah)` | دراسة شاملة لآية: نص + تفسير + إعراب + كلمات |
-| `compare_tafsirs(surah, ayah)` | مقارنة التفاسير الخمسة لآية |
+| `study_ayah(surah, ayah)` | دراسة شاملة: نص + تفسير + إعراب + كلمات |
+| `compare_tafsirs(surah, ayah)` | مقارنة التفاسير الخمسة |
 | `root_study(root)` | دراسة جذر: إحصاء + مواضع + سياقات |
 | `surah_overview(surah)` | نظرة شاملة على سورة |
 | `tajweed_lesson(surah, ayah)` | درس تجويد: أحكام + قراءات |
 
 ---
 
-## مصادر التفسير / Tafsir Sources
+## 📚 مصادر التفسير
 
-| المعرّف | الكتاب | المؤلف | سنة الوفاة |
-|---------|--------|--------|------------|
+| المعرّف | الكتاب | المؤلف | الوفاة |
+|---------|--------|--------|--------|
 | `tabary` | جامع البيان | أبو جعفر الطبري | 310هـ |
 | `katheer` | تفسير ابن كثير | أبو الفداء إسماعيل بن كثير | 774هـ |
 | `baghawy` | معالم التنزيل | الحسين بن مسعود البغوي | 510هـ |
@@ -153,30 +146,23 @@ uv sync
 
 ---
 
-## البنية / Project Structure
+## 🗂️ بنية المشروع
 
 ```
-src/quranic_scholar/
+src/tafsir/
 ├── server.py          # FastMCP entry point
 ├── db.py              # SQLite read-only connection
+├── data_loader.py     # DB path resolver + auto-download
 ├── models.py          # Pydantic models + attributions
 ├── normalize.py       # Arabic text normalization
-├── tools/
-│   ├── ayah.py        # fetch_ayah, fetch_tafsir, fetch_nuzool_reason
-│   ├── surah.py       # fetch_surah_info
-│   ├── word.py        # analyze_word, find_root_occurrences, get_root_stats
-│   ├── qeraat.py      # get_qeraat_variants
-│   ├── search.py      # search_quran_text, search_in_tafsir
-│   └── stats.py       # get_quran_overview, get_page_fawaed, get_surah_statistics
-├── resources/
-│   └── catalogs.py    # quran://surahs, quran://tafsirs, quran://schema
-└── prompts/
-    └── study.py       # 5 study prompt templates
+├── tools/             # 13 MCP tools
+├── resources/         # 3 MCP resources
+└── prompts/           # 5 study prompt templates
 ```
 
 ---
 
-## الاختبارات / Tests
+## 🧪 الاختبارات
 
 ```bash
 uv run pytest tests/ -v
@@ -185,14 +171,90 @@ uv run pytest tests/ -v
 
 ---
 
-## ملاحظات أمان / Security Notes
+## 🔒 الأمان
 
 - قاعدة البيانات تُفتح للقراءة فقط: `mode=ro` + `PRAGMA query_only=ON`
-- جميع مدخلات المستخدم تمر عبر `?` placeholders — لا SQL injection
-- الخادم لا يستخدم الشبكة (`openWorldHint=False`)
+- جميع مدخلات المستخدم عبر `?` placeholders — لا SQL injection
+- الأدوات لا تصل للشبكة (`openWorldHint=False`)
 
 ---
 
-## الترخيص / License
+## 📜 الترخيص
 
-See [DATA_SOURCES.md](DATA_SOURCES.md) for attribution and usage terms of the Quranic data.
+- **الكود**: [MIT License](LICENSE) — Ahmed Eid, Markaz Tafsir for Quranic Studies
+- **قاعدة البيانات**: [CC BY 4.0](LICENSE-DATA) — يجب نسبة المصدر لمركز تفسير
+
+---
+
+## 🏛️ الجهة الراعية
+
+هذا المشروع رعاية ودعم **[مركز تفسير للدراسات القرآنية](https://tafsir.net)**.
+البيانات القرآنية مراجعة وموثّقة من قِبل الباحثين العلميين في المركز.
+
+📧 cloud@tafsir.net
+
+---
+
+<a id="english"></a>
+
+## 🌙 About
+
+A **Model Context Protocol (MCP)** server providing scholarly, certified access to the Holy Quran for any MCP-compatible AI assistant (Claude Code, Claude Desktop, VS Code, etc.).
+
+All data is reviewed and certified by **[Markaz Tafsir for Quranic Studies](https://tafsir.net)**.
+
+## ✨ Features
+
+- 📖 **6,236 ayahs** in Uthmani script
+- 📚 **5 classical Arabic tafsirs**: Tabari · Ibn Kathir · Baghawi · Saadi · Muyassar
+- 🌍 **Trilingual Mukhtasar** (Arabic, English, Bengali)
+- 🔤 **77,432 words** with full linguistic analysis (i'rab, sarf, root, rasm)
+- 🔍 **1,891 roots** searchable with statistics
+- ⚡ **FTS5 search** with full Arabic normalization (diacritic-free)
+- 🎵 **Qira'at variants** per ayah and word
+- 📜 **Asbab al-nuzool** with full isnad (201 ayahs)
+- 📊 **Detailed statistics** per surah and mushaf page
+- 🛡️ **Hallucination protection** (strict Pydantic v2 validation)
+- 📴 **Fully offline** after installation
+
+## 🚀 Quick Install
+
+```bash
+# Claude Code
+claude mcp add tafsir --scope user -- uvx tafsir-mcp
+
+# pip / uvx
+pip install tafsir-mcp
+uvx tafsir-mcp
+```
+
+On first run, the database (~214 MB) is downloaded automatically from Hugging Face and cached at `~/.cache/tafsir-mcp/`.
+
+## 🧰 Available Tools (13)
+
+| Category | Tool | Description |
+|---|---|---|
+| **Ayah** | `fetch_ayah` | Ayah text with optional tajweed/i'rab |
+| | `fetch_tafsir` | Tafsir from up to 8 sources in one call |
+| | `fetch_nuzool_reason` | Asbab al-nuzool with full isnad |
+| **Surah** | `fetch_surah_info` | Full surah info: goals, virtues, revelation |
+| | `get_surah_statistics` | Word count, char count, longest word... |
+| **Word** | `analyze_word` | I'rab, sarf, meaning, root, qira'at |
+| | `find_root_occurrences` | All occurrences of a root in the Quran |
+| | `get_root_stats` | Root stats: surahs, ayahs, distinct forms |
+| **Search** | `search_quran_text` | FTS5 diacritic-free search |
+| | `search_in_tafsir` | LIKE search in a tafsir text |
+| **Qira'at** | `get_qeraat_variants` | Reading variants for ayah or word |
+| **General** | `get_quran_overview` | Quran-wide statistics |
+| | `get_page_fawaed` | Fawaed for a mushaf page |
+
+## 📜 License
+
+- **Code**: [MIT](LICENSE) — Ahmed Eid, Markaz Tafsir for Quranic Studies
+- **Quranic Data**: [CC BY 4.0](LICENSE-DATA) — attribution to "Markaz Tafsir for Quranic Studies" required
+
+## 🏛️ Sponsor
+
+Sponsored by **[Markaz Tafsir for Quranic Studies](https://tafsir.net)**.
+
+📧 cloud@tafsir.net · [GitHub Issues](https://github.com/ah-vb-cod/tafsir-mcp/issues)

@@ -10,7 +10,7 @@ import sys
 import time
 
 sys.path.insert(0, "src")
-from quranic_scholar.normalize import normalize_arabic  # noqa: E402
+from tafsir.normalize import normalize_arabic  # noqa: E402
 
 DB_PATH = os.environ.get("QURAN_DB_PATH", "data/quran.db")
 BATCH_SIZE = 500

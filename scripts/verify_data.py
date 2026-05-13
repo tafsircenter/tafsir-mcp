@@ -1,15 +1,17 @@
-"""Verify integrity of data/quran.db against expected row counts."""
+"""Verify integrity of quran.db against expected row counts."""
 
-import os
 import sqlite3
 import sys
+
+sys.path.insert(0, "src")
+from tafsir.data_loader import get_db_path  # noqa: E402
 
 GREEN = "\033[92m"
 RED = "\033[91m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
 
-DB_PATH = os.environ.get("QURAN_DB_PATH", "data/quran.db")
+DB_PATH = str(get_db_path())
 
 CHECKS = [
     ("surah_stats — عدد السور",           "SELECT COUNT(*) FROM surah_stats",                                                          114),
@@ -27,7 +29,7 @@ CHECKS = [
 
 
 def main() -> int:
-    print(f"\n{BOLD}=== Quranic Scholar DB Verification ==={RESET}")
+    print(f"\n{BOLD}=== Tafsir MCP — DB Verification ==={RESET}")
     print(f"Database: {DB_PATH}\n")
 
     if not os.path.exists(DB_PATH):

@@ -3,8 +3,8 @@
 import pytest
 from pydantic import ValidationError
 
-from quranic_scholar.db import QuranDataError, get_connection, query_all, query_one
-from quranic_scholar.models import (
+from tafsir.db import QuranDataError, get_connection, query_all, query_one
+from tafsir.models import (
     SURAH_AYAH_COUNTS,
     TAFSIR_ATTRIBUTIONS,
     AyahReference,

@@ -1,20 +1,20 @@
-"""FastMCP entry point for Quranic Scholar MCP Server — 13 tools, 3 resources, 5 prompts."""
+"""FastMCP entry point for Tafsir MCP Server — 13 tools, 3 resources, 5 prompts."""
 
 from mcp.server.fastmcp import FastMCP
 
-from quranic_scholar.prompts import study as study_prompts
-from quranic_scholar.resources import catalogs
-from quranic_scholar.tools import ayah as ayah_tools
-from quranic_scholar.tools import qeraat as qeraat_tools
-from quranic_scholar.tools import search as search_tools
-from quranic_scholar.tools import stats as stats_tools
-from quranic_scholar.tools import surah as surah_tools
-from quranic_scholar.tools import word as word_tools
+from tafsir.prompts import study as study_prompts
+from tafsir.resources import catalogs
+from tafsir.tools import ayah as ayah_tools
+from tafsir.tools import qeraat as qeraat_tools
+from tafsir.tools import search as search_tools
+from tafsir.tools import stats as stats_tools
+from tafsir.tools import surah as surah_tools
+from tafsir.tools import word as word_tools
 
 mcp = FastMCP(
-    "Quranic Scholar",
+    "Tafsir MCP",
     instructions=(
-        "خادم MCP للوصول العلمي إلى القرآن الكريم بلا اتصال بالإنترنت. "
+        "خادم MCP للوصول العلمي الموثّق إلى القرآن الكريم — برعاية مركز تفسير للدراسات القرآنية. "
         "يوفر 13 أداة + 3 موارد + 5 قوالب دراسة.\n\n"
         "الأدوات:\n"
         "• fetch_ayah — نص آية بالرسم العثماني مع تجويد/إعراب اختياري\n"

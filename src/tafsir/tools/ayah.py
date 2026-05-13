@@ -5,8 +5,8 @@ from __future__ import annotations
 from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
 
-from quranic_scholar.db import query_all, query_one
-from quranic_scholar.models import (
+from tafsir.db import query_all, query_one
+from tafsir.models import (
     TAFSIR_ATTRIBUTIONS,
     AyahReference,
     AyahResponse,
@@ -14,7 +14,7 @@ from quranic_scholar.models import (
     TafsirResponse,
     TafsirSource,
 )
-from quranic_scholar.normalize import reconstruct_ayah
+from tafsir.normalize import reconstruct_ayah
 
 _ANNOTATIONS = ToolAnnotations(
     readOnlyHint=True,

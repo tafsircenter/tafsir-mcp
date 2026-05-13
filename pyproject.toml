@@ -1,25 +1,45 @@
 [project]
-name = "quranic-scholar-mcp"
-version = "0.1.0"
-description = "Add your description here"
+name = "tafsir-mcp"
+version = "1.0.0"
+description = "خادم MCP للوصول العلمي الموثّق إلى القرآن الكريم، رعاية مركز تفسير للدراسات القرآنية"
 readme = "README.md"
 requires-python = ">=3.12"
+authors = [
+    { name = "Ahmed Eid", email = "cloud@tafsir.net" },
+]
+maintainers = [
+    { name = "Ahmed Eid", email = "cloud@tafsir.net" },
+]
+keywords = ["mcp", "quran", "tafsir", "islamic", "arabic-nlp", "tafsir-center"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Religion",
+    "Topic :: Religion",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "mcp[cli]>=1.27.0",
+    "pyarabic>=0.6.15",
+    "pydantic>=2.9",
+]
+
+[project.urls]
+Homepage = "https://github.com/ah-vb-cod/tafsir-mcp"
+Repository = "https://github.com/ah-vb-cod/tafsir-mcp"
+Issues = "https://github.com/ah-vb-cod/tafsir-mcp/issues"
+"Tafsir Center" = "https://tafsir.net"
 
 [project.scripts]
-quranic-scholar-mcp = "quranic_scholar.server:main"
+tafsir-mcp = "tafsir.server:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/quranic_scholar"]
-
-dependencies = [
-    "mcp[cli]>=1.27.0",
-    "pyarabic>=0.6.15",
-    "pydantic>=2.9",
-]
+packages = ["src/tafsir"]
+exclude = ["**/quran.db", "data/"]
 
 [dependency-groups]
 dev = [

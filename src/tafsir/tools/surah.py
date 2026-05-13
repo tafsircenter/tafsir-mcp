@@ -6,8 +6,8 @@ from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
 from pydantic import Field
 
-from quranic_scholar.db import query_one
-from quranic_scholar.models import SurahInfo
+from tafsir.db import query_one
+from tafsir.models import SurahInfo
 
 _ANNOTATIONS = ToolAnnotations(
     readOnlyHint=True,

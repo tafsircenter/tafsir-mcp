@@ -2,8 +2,8 @@
 
 import json
 
-from quranic_scholar.db import query_all
-from quranic_scholar.models import TAFSIR_ATTRIBUTIONS, TafsirSource
+from tafsir.db import query_all
+from tafsir.models import TAFSIR_ATTRIBUTIONS, TafsirSource
 
 # ── Tafsir catalog (static) ───────────────────────────────────────────────────
 

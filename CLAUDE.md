@@ -1,7 +1,10 @@
-# Quranic Scholar MCP Server
+# Tafsir MCP Server
 
 ## Project Overview
-MCP server providing scholarly, offline-first access to the Quran with 5 classical Arabic tafsirs (Tabari, Ibn Kathir, Baghawi, Saadi, Muyassar), word-level grammatical analysis (i'rab, sarf, root), qira'at variants, asbab al-nuzool, and surah statistics. Religious content — accuracy is paramount.
+MCP server providing scholarly, certified access to the Quran with 5 classical Arabic tafsirs (Tabari, Ibn Kathir, Baghawi, Saadi, Muyassar), word-level grammatical analysis (i'rab, sarf, root), qira'at variants, asbab al-nuzool, and surah statistics. Sponsored by Markaz Tafsir for Quranic Studies (https://tafsir.net). Religious content — accuracy is paramount.
+
+## Sponsoring Organization
+This project is sponsored by Markaz Tafsir for Quranic Studies (مركز تفسير للدراسات القرآنية, https://tafsir.net). The Quranic database is reviewed and certified by the Center's scholars.
 
 ## Tech Stack
 - Python 3.12 with FastMCP (mcp[cli] >= 1.27.0)
@@ -32,7 +35,7 @@ param: int = Field(ge=1, le=114, default=1)
 Required params (no default): `param: Annotated[int, Field(ge=1, le=114)]` — no `= value`.
 
 ## Database Schema
-File: data/quran.db (read-only, SQLite 3.x, ~215 MB)
+File: resolved via data_loader.get_db_path() — checks TAFSIR_DB_PATH env var, then data/quran.db, then ~/.cache/tafsir-mcp/quran.db (auto-downloaded). SQLite 3.x, ~214 MB.
 
 Tables:
 - surah_content, surah_stats (114 rows each, surah-level)
@@ -53,10 +56,11 @@ Note: full ayah text is reconstructed by concatenating word_content_rasm.word or
 - tafsir_moyassar → "التفسير الميسر، مجمع الملك فهد لطباعة المصحف الشريف"
 
 ## Project Structure (target)
-src/quranic_scholar/
+src/tafsir/
 ├── __init__.py
 ├── server.py          # FastMCP entry point
 ├── db.py              # SQLite connection management
+├── data_loader.py     # DB path resolver + auto-download
 ├── models.py          # Pydantic response models
 ├── normalize.py       # Arabic text normalization
 ├── tools/
