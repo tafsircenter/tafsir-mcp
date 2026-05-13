@@ -42,7 +42,7 @@ This dataset is the data backbone for [`tafsir-mcp`](https://github.com/tafsirce
 a Model Context Protocol (MCP) server providing scholarly, offline-first access to the Holy Quran
 for AI assistants like Claude Code, Cursor, and any MCP-compatible client.
 
-All content is sourced from and reviewed by **Markaz Tafsir for Quranic Studies**
+All content is sourced from and reviewed by **Tafsir Center for Quranic Studies**
 ([tafsir.net](https://tafsir.net)).
 
 ---
@@ -70,7 +70,7 @@ All content is sourced from and reviewed by **Markaz Tafsir for Quranic Studies*
 | Ma'alim al-Tanzil (البغوي) | al-Baghawi | 510 |
 | Taysir al-Karim al-Rahman (السعدي) | al-Sa'di | 1376 |
 | al-Tafsir al-Muyassar | King Fahd Complex | Contemporary |
-| al-Mukhtasar fi al-Tafsir | Markaz Tafsir | Contemporary |
+| al-Mukhtasar fi al-Tafsir | Tafsir Center | Contemporary |
 
 ---
 
@@ -108,7 +108,7 @@ conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
 ## 📜 License — CC BY 4.0
 
 - ✅ Share, adapt, use commercially
-- 📌 Attribution required: "Markaz Tafsir for Quranic Studies (https://tafsir.net)"
+- 📌 Attribution required: "Tafsir Center for Quranic Studies (https://tafsir.net)"
 
 Full license: [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)
 
@@ -116,7 +116,7 @@ Full license: [creativecommons.org/licenses/by/4.0](https://creativecommons.org/
 
 ## 🏛️ Source
 
-Sourced from official content systems of **Markaz Tafsir for Quranic Studies**,
+Sourced from official content systems of **Tafsir Center for Quranic Studies**,
 used in production and reviewed by the Center's scholars.
 
 ---

@@ -5,7 +5,7 @@
 جميع البيانات في هذا المشروع مستخرجة من قاعدة بيانات **مركز تفسير للدراسات القرآنية**،
 ومراجعة من قِبل الباحثين العلميين في المركز.
 
-All data in this project is extracted from the **Markaz Tafsir for Quranic Studies** database,
+All data in this project is extracted from the **Tafsir Center for Quranic Studies** database,
 reviewed and certified by the Center's scholars.
 
 ---
@@ -68,7 +68,7 @@ Any errors in the data originate from the data source, not from this server.
 
 Personal, educational, and research use is acceptable.
 Commercial redistribution of tafsir texts requires permission from rights holders.
-Attribution to Markaz Tafsir is required when quoting.
+Attribution to Tafsir Center is required when quoting.
 The server must not be used to generate independent religious rulings (fatwas).
 
 ---

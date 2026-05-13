@@ -181,7 +181,7 @@ uv run pytest tests/ -v
 
 ## 📜 الترخيص
 
-- **الكود**: [MIT License](LICENSE) — Ahmed Eid, Markaz Tafsir for Quranic Studies
+- **الكود**: [MIT License](LICENSE) — Ahmed Eid, Tafsir Center for Quranic Studies
 - **قاعدة البيانات**: [CC BY 4.0](LICENSE-DATA) — يجب نسبة المصدر لمركز تفسير
 
 ---
@@ -201,7 +201,7 @@ uv run pytest tests/ -v
 
 A **Model Context Protocol (MCP)** server providing scholarly, certified access to the Holy Quran for any MCP-compatible AI assistant (Claude Code, Claude Desktop, VS Code, etc.).
 
-All data is reviewed and certified by **[Markaz Tafsir for Quranic Studies](https://tafsir.net)**.
+All data is reviewed and certified by **[Tafsir Center for Quranic Studies](https://tafsir.net)**.
 
 ## ✨ Features
 
@@ -250,11 +250,11 @@ On first run, the database (~214 MB) is downloaded automatically from Hugging Fa
 
 ## 📜 License
 
-- **Code**: [MIT](LICENSE) — Ahmed Eid, Markaz Tafsir for Quranic Studies
-- **Quranic Data**: [CC BY 4.0](LICENSE-DATA) — attribution to "Markaz Tafsir for Quranic Studies" required
+- **Code**: [MIT](LICENSE) — Ahmed Eid, Tafsir Center for Quranic Studies
+- **Quranic Data**: [CC BY 4.0](LICENSE-DATA) — attribution to "Tafsir Center for Quranic Studies" required
 
 ## 🏛️ Sponsor
 
-Sponsored by **[Markaz Tafsir for Quranic Studies](https://tafsir.net)**.
+Sponsored by **[Tafsir Center for Quranic Studies](https://tafsir.net)**.
 
 📧 cloud@tafsir.net · [GitHub Issues](https://github.com/tafsircenter/tafsir-mcp/issues)

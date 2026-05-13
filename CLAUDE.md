@@ -1,10 +1,10 @@
 # Tafsir MCP Server
 
 ## Project Overview
-MCP server providing scholarly, certified access to the Quran with 5 classical Arabic tafsirs (Tabari, Ibn Kathir, Baghawi, Saadi, Muyassar), word-level grammatical analysis (i'rab, sarf, root), qira'at variants, asbab al-nuzool, and surah statistics. Sponsored by Markaz Tafsir for Quranic Studies (https://tafsir.net). Religious content — accuracy is paramount.
+MCP server providing scholarly, certified access to the Quran with 5 classical Arabic tafsirs (Tabari, Ibn Kathir, Baghawi, Saadi, Muyassar), word-level grammatical analysis (i'rab, sarf, root), qira'at variants, asbab al-nuzool, and surah statistics. Sponsored by Tafsir Center for Quranic Studies (https://tafsir.net). Religious content — accuracy is paramount.
 
 ## Sponsoring Organization
-This project is sponsored by Markaz Tafsir for Quranic Studies (مركز تفسير للدراسات القرآنية, https://tafsir.net). The Quranic database is reviewed and certified by the Center's scholars.
+This project is sponsored by Tafsir Center for Quranic Studies (مركز تفسير للدراسات القرآنية, https://tafsir.net). The Quranic database is reviewed and certified by the Center's scholars.
 
 ## Tech Stack
 - Python 3.12 with FastMCP (mcp[cli] >= 1.27.0)
