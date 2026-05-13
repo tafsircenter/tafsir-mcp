@@ -12,8 +12,25 @@ DB_URL = (
     "https://huggingface.co/datasets/tafsircenter/tafsir-mcp-data"
     "/resolve/main/quran.db"
 )
-DB_SHA256 = "PLACEHOLDER_WILL_SET_AFTER_UPLOAD"
+DB_SHA256 = "10e61f615ab5e6a3440e8ecc8ba1dc2273d12cd9048752760fe53a44d191cc27"
 DB_SIZE_MB = 214
+
+
+def _verify_sha256(path: Path) -> None:
+    """تحقق من سلامة الملف بعد التحميل."""
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    actual = h.hexdigest()
+    if actual != DB_SHA256:
+        path.unlink()
+        raise RuntimeError(
+            f"تعارض في SHA256 لقاعدة البيانات المحمّلة!\n"
+            f"  متوقع: {DB_SHA256}\n"
+            f"  فعلي:  {actual}\n"
+            f"المرجو إعادة المحاولة أو الإبلاغ عن المشكلة."
+        )
 
 
 def get_db_path() -> Path:
@@ -54,14 +71,7 @@ def get_db_path() -> Path:
                 "Set TAFSIR_DB_PATH to point to a local quran.db file."
             ) from exc
 
-        if DB_SHA256 != "PLACEHOLDER_WILL_SET_AFTER_UPLOAD":
-            actual = hashlib.sha256(cache_db.read_bytes()).hexdigest()
-            if actual != DB_SHA256:
-                cache_db.unlink()
-                raise RuntimeError(
-                    f"Database checksum mismatch. Expected {DB_SHA256}, got {actual}."
-                )
-
+        _verify_sha256(cache_db)
         print(f"✅ Database saved to {cache_db}", file=sys.stderr)
 
     return cache_db
