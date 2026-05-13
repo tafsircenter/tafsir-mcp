@@ -14,3 +14,6 @@ data/quran.db
 data/quran.db-shm
 data/quran.db-wal
 data/quran.db-journal
+
+# Hugging Face upload scripts — temp artifacts
+scripts/.db_sha256

@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.request import urlretrieve
 
 DB_URL = (
-    "https://huggingface.co/datasets/tafsir-center/tafsir-mcp-data"
+    "https://huggingface.co/datasets/tafsircenter/tafsir-mcp-data"
     "/resolve/main/quran.db"
 )
 DB_SHA256 = "PLACEHOLDER_WILL_SET_AFTER_UPLOAD"
