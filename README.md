@@ -60,7 +60,7 @@ uvx tafsir-mcp
 
 ### للمطوّرين (من المصدر):
 ```bash
-git clone https://github.com/ah-vb-cod/tafsir-mcp
+git clone https://github.com/tafsircenter/tafsir-mcp
 cd tafsir-mcp
 cp /path/to/quran.db data/quran.db   # أو: export TAFSIR_DB_PATH=/path/to/quran.db
 uv sync
@@ -257,4 +257,4 @@ On first run, the database (~214 MB) is downloaded automatically from Hugging Fa
 
 Sponsored by **[Markaz Tafsir for Quranic Studies](https://tafsir.net)**.
 
-📧 cloud@tafsir.net · [GitHub Issues](https://github.com/ah-vb-cod/tafsir-mcp/issues)
+📧 cloud@tafsir.net · [GitHub Issues](https://github.com/tafsircenter/tafsir-mcp/issues)

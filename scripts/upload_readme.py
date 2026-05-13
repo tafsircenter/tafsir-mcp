@@ -28,7 +28,7 @@ pretty_name: Tafsir MCP — Quranic Database
 
 <div align="center">
 
-**قاعدة بيانات القرآن الكريم والتفاسير لمشروع [tafsir-mcp](https://github.com/ah-vb-cod/tafsir-mcp)**
+**قاعدة بيانات القرآن الكريم والتفاسير لمشروع [tafsir-mcp](https://github.com/tafsircenter/tafsir-mcp)**
 
 برعاية [مركز تفسير للدراسات القرآنية](https://tafsir.net)
 
@@ -38,7 +38,7 @@ pretty_name: Tafsir MCP — Quranic Database
 
 ## 📖 Overview
 
-This dataset is the data backbone for [`tafsir-mcp`](https://github.com/ah-vb-cod/tafsir-mcp),
+This dataset is the data backbone for [`tafsir-mcp`](https://github.com/tafsircenter/tafsir-mcp),
 a Model Context Protocol (MCP) server providing scholarly, offline-first access to the Holy Quran
 for AI assistants like Claude Code, Cursor, and any MCP-compatible client.
 
@@ -125,7 +125,7 @@ used in production and reviewed by the Center's scholars.
 
 - 🌐 [tafsir.net](https://tafsir.net)
 - 📧 cloud@tafsir.net
-- 🐙 [github.com/ah-vb-cod/tafsir-mcp](https://github.com/ah-vb-cod/tafsir-mcp)
+- 🐙 [github.com/tafsircenter/tafsir-mcp](https://github.com/tafsircenter/tafsir-mcp)
 """
 
 

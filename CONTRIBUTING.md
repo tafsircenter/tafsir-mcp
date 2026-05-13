@@ -60,5 +60,5 @@ perf: تحسين أداء
 
 ## التواصل
 
-- المشاكل التقنية: [GitHub Issues](https://github.com/ah-vb-cod/tafsir-mcp/issues)
+- المشاكل التقنية: [GitHub Issues](https://github.com/tafsircenter/tafsir-mcp/issues)
 - الاستفسارات العلمية: cloud@tafsir.net

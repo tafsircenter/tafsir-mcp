@@ -26,9 +26,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ah-vb-cod/tafsir-mcp"
-Repository = "https://github.com/ah-vb-cod/tafsir-mcp"
-Issues = "https://github.com/ah-vb-cod/tafsir-mcp/issues"
+Homepage = "https://github.com/tafsircenter/tafsir-mcp"
+Repository = "https://github.com/tafsircenter/tafsir-mcp"
+Issues = "https://github.com/tafsircenter/tafsir-mcp/issues"
 "Tafsir Center" = "https://tafsir.net"
 
 [project.scripts]

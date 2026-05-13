@@ -77,4 +77,4 @@ The server must not be used to generate independent religious rulings (fatwas).
 
 - البريد العلمي: cloud@tafsir.net
 - الموقع: [tafsir.net](https://tafsir.net)
-- المشاكل التقنية: [GitHub Issues](https://github.com/ah-vb-cod/tafsir-mcp/issues)
+- المشاكل التقنية: [GitHub Issues](https://github.com/tafsircenter/tafsir-mcp/issues)
