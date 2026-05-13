@@ -9,5 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-# Database (large binary, not tracked in git)
+# Database (large binary + SQLite temp files, not tracked in git)
 data/quran.db
+data/quran.db-shm
+data/quran.db-wal
+data/quran.db-journal
