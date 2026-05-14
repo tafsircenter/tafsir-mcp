@@ -1,0 +1,38 @@
+# flyctl launch added from .gitignore
+# Python-generated files
+**/__pycache__
+**/*.py[oc]
+**/build
+**/dist
+**/wheels
+**/*.egg-info
+
+# Virtual environments
+**/.venv
+
+# Database (large binary + SQLite temp files, not tracked in git)
+**/data/quran.db
+**/data/quran.db-shm
+**/data/quran.db-wal
+**/data/quran.db-journal
+
+# Hugging Face upload scripts — temp artifacts
+**/scripts/.db_sha256
+
+# macOS system files
+**/.DS_Store
+**/.DS_Store?
+**/._*
+**/.Spotlight-V100
+**/.Trashes
+
+# flyctl launch added from .pytest_cache/.gitignore
+# Created by pytest automatically.
+.pytest_cache/**/*
+
+# flyctl launch added from .venv/.gitignore
+.venv/**/*
+
+# flyctl launch added from dist/.gitignore
+dist/**/*
+fly.toml
