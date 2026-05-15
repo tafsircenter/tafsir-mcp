@@ -27,7 +27,7 @@ tags:
 ## 🔗 رابط الخادم
 
 ```
-https://tafsircenter-tafsir-mcp.hf.space/mcp
+https://mcp.tafsir.net/mcp
 ```
 
 ---
@@ -92,6 +92,7 @@ pip install tafsir-mcp
 | الكود | https://github.com/tafsircenter/tafsir-mcp |
 | قاعدة البيانات | https://huggingface.co/datasets/tafsircenter/tafsir-mcp-data |
 | PyPI | https://pypi.org/project/tafsir-mcp/ |
+| دليل النشر | [DEPLOY.md](./DEPLOY.md) |
 
 ## الترخيص
 
