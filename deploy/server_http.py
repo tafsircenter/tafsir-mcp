@@ -18,8 +18,20 @@ import os
 import sys
 
 from mcp.server.transport_security import TransportSecuritySettings
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 from tafsir.server import mcp
+
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health(request: Request) -> JSONResponse:
+    """Health check for Fly.io / load balancer probes.
+
+    Returns minimal payload with NO secrets — custom_route bypasses MCP auth
+    middleware by design (FastMCP documented behavior).
+    """
+    return JSONResponse({"status": "ok", "service": "tafsir-mcp"})
 
 
 def main() -> None:
