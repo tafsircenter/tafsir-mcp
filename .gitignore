@@ -24,3 +24,4 @@ scripts/.db_sha256
 ._*
 .Spotlight-V100
 .Trashes
+*.bak
