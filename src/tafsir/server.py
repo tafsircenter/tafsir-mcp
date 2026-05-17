@@ -1,8 +1,9 @@
 """FastMCP entry point for Tafsir MCP Server — 13 tools, 3 resources, 5 prompts.
 
-v1.0.x → v1.1: refined `instructions=` only. No changes to tools, resources,
-or prompts. Rate limiting will be added later in deploy/server_http.py
-(per HTTP middleware pattern, not in this file).
+v1.1 → v1.2: refined display protocol based on user preference research:
+- No mandatory ⚠️ warning for short texts (user-friendly default)
+- For long texts (>~2500 chars), ASK the user how they prefer the display
+- Gentle notice (not warning) when user explicitly requests abbreviation
 """
 
 from mcp.server.fastmcp import FastMCP
@@ -21,54 +22,86 @@ SERVER_INSTRUCTIONS = """خادم Tafsir MCP — وصول علمي موثّق إ
 
 # English summary
 This server returns verified Quranic and tafsir data. Treat every `text` field
-as verbatim source text. Do not paraphrase, summarize, or complete religious
-content from memory. If you display only part of a source text — or
-abbreviate/reword it for any reason — prepend the exact warning sentence in
-section 2 below, and offer to send the full original on request. Metadata
-fields beginning with `_` are LLM guidance — do not echo them to the user.
+as verbatim source text from a peer-reviewed religious database. Display rule
+depends on text length:
+- SHORT text (~≤2500 chars): show in full verbatim, with attribution, no warnings.
+- LONG text (>~2500 chars): do NOT dump it; ASK the user how they prefer it
+  displayed (full / split in two messages / summary).
+- If the user explicitly asks for abbreviation: summarize and add a gentle
+  closing note that the full text is available on request. No ⚠️ banner.
+Never paraphrase or complete religious content from memory. Metadata fields
+beginning with `_` are LLM guidance — do not echo them to the user.
 
 # ميثاق العرض والاستخدام
 
 ## ١. النص الأصلي حرفي
-كل حقل باسم `text` في ردود الأدوات هو نص أصلي من قاعدة بيانات معتمدة.
-يجب عرضه كما هو عند طلب النص الأصلي، بدون:
-- تلخيص
+كل حقل باسم `text` في ردود الأدوات هو نص أصلي من قاعدة بيانات معتمدة
+شرعياً. يجب عرضه كما هو عند طلب النص الأصلي، بدون:
+- تلخيص ذاتي
 - إعادة صياغة
 - حذف
 - ترتيب جديد
 - إضافة شرح داخل النص
 
-## ٢. التحذير عند الاقتباس أو الاختصار
-إذا عرضت للمستخدم جزءاً من النص فقط، أو لخّصته، أو أعدت صياغته، أو لم تعرض
-حقل `text` كاملاً، فيجب أن تبدأ ردك بهذه الصياغة حرفياً:
+## ٢. عرض التفسير حسب طول النص
 
-⚠️ النص أدناه مقتبس وليس النص الأصلي الكامل من المصدر.
-للنص الأصلي حرفياً، أرسل: «أعد النص الأصلي كاملاً» وسأرسله لك حرفياً.
+عند استدعاء `fetch_tafsir` أو `fetch_nuzool_reason` أو `fetch_ayah` (مع
+تجويد/إعراب)، اعتمد المنطق التالي:
 
-بعد هذا التحذير يمكنك عرض الاقتباس أو الشرح المختصر.
+### أ. النصوص القصيرة (~≤2500 حرف)
+هذه أغلب التفاسير (السعدي، الميسر، المختصر). اعرض حقل `text` كاملاً
+حرفياً مع `attribution` (اسم الكتاب + المؤلف). **بدون أي مقدمة، بدون
+تحذير، بدون تنبيه**. مباشرة كما يستحقه نص علمي موثَّق.
 
-## ٣. طلب النص الأصلي الكامل
-إذا طلب المستخدم النص الأصلي الكامل أو قال: «أعد النص الأصلي كاملاً»،
-فاستدعِ الأداة المناسبة واعرض حقل `text` كاملاً كما ورد، بلا تلخيص ولا
-إعادة صياغة.
+مثال للسلوك المطلوب:
+> المستخدم: «ما تفسير السعدي لقوله تعالى الرحمن الرحيم؟»
+> الرد المطلوب:
+> «تفسير السعدي (تيسير الكريم الرحمن، عبد الرحمن السعدي، ت. 1376هـ):
+>
+> [نص السعدي كاملاً كما ورد في الأداة]»
 
-## ٤. النصوص الطويلة
-إذا كان النص طويلاً، أو أعادت الأداة حقولاً مثل `_display.has_long_text = true`
-أو `part_info.is_split = true`:
-1) اعرض الجزء الموجود في حقل `text` كاملاً كما ورد
-2) اختم ردك بـ: «النص الأصلي طويل، أرسلت هذا الجزء كاملاً. لإكماله أرسل:
-   «الجزء التالي»»
-3) عند طلب المستخدم «الجزء التالي»، أعد استدعاء نفس الأداة بنفس المعاملات
-   مع تغيير `part` إلى الرقم التالي (1 → 2)
-4) لا تخترع بقية النص من ذاكرتك
+### ب. النصوص الطويلة (>~2500 حرف)
+كتفسير الطبري أو ابن كثير على آيات مفصّلة. **لا تعرض النص فوراً**.
+بدلاً من ذلك، اسأل المستخدم باستخدام هذه الصياغة:
+
+> «النص الأصلي طويل (X حرف). كيف تفضّل عرضه:
+> - كاملاً دفعة واحدة
+> - مقسّماً على رسالتين
+> - ملخصاً مع إمكانية طلب الأصل»
+
+ثم انتظر اختياره وتصرّف وفقه:
+- **«كامل»** → اعرض حقل `text` كاملاً بدون اختصار
+- **«على رسالتين»** → قسّم النص عند نهاية جملة قريبة من المنتصف، اعرض
+  الجزء الأول، اختم بـ «هذا الجزء الأول. للجزء التالي أرسل: الجزء التالي»
+- **«ملخص»** → اعرض ملخصاً، واختم بإعلام لطيف (انظر بند ٣)
+
+## ٣. عند طلب الاختصار صراحة
+إذا طلب المستخدم اختصاراً من البداية (مثل: «اختصر»، «بسرعة»، «ملخص فقط»،
+«باختصار»):
+- قدّم اختصاراً واضحاً للمعنى
+- احرص على ذكر `attribution` للمصدر
+- اختم بإعلام لطيف بهذه الصياغة:
+
+> «هذا اختصار بطلبك. النص الأصلي متاح إن أردته كاملاً.»
+
+**لا تستخدم تحذيراً صارماً بعلامة ⚠️.** الإعلام لطيف وداعم، لا تحذيري.
+
+## ٤. عند طلب النص الأصلي الكامل
+إذا طلب المستخدم النص الأصلي صراحة («أعد الأصل»، «النص كاملاً»، «أعد
+النص الأصلي كاملاً»):
+- استدعِ الأداة المناسبة (إن لم تستدعها بعد)
+- اعرض حقل `text` كاملاً حرفياً بدون اختصار
+- إذا كان > 2500 حرف، ابدأ بالجزء الأول واعرض على المستخدم خيار التقسيم
+  (انظر بند ٢-ب)
 
 ## ٥. نسبة التفسير إلزامية
-كل تفسير يأتي مع حقل `attribution`. اذكر النسبة العلمية مع النص، قبله أو
-بعده، ولا تحذفها حتى عند الاختصار.
+كل تفسير يأتي مع حقل `attribution` (اسم الكتاب + المؤلف + سنة الوفاة).
+اذكر النسبة العلمية مع النص، قبله أو بعده، ولا تحذفها حتى عند الاختصار.
 
 ## ٦. أسباب النزول
 حقل `text` في `fetch_nuzool_reason` قد يحتوي على الإسناد والمتن.
-اعرضه كاملاً عند طلب الأصل، ولا تختصر الإسناد.
+عند العرض الكامل، اعرضه بحرفيته بدون اختصار الإسناد ("رواه فلان عن
+فلان..."). للنصوص الطويلة، اتبع منطق البند ٢-ب.
 
 ## ٧. لا توليد ديني من الذاكرة
 الأدوات هي مصدر الحقيقة الوحيد. لا تضف:
@@ -76,10 +109,13 @@ fields beginning with `_` are LLM guidance — do not echo them to the user.
 - سبب نزول لم يأت من `fetch_nuzool_reason`
 - نص آية لم يأت من `fetch_ayah`
 - حكم تجويد لم يأت من `fetch_ayah(include_tajweed=true)`
+- حكم قراءة لم يأت من `get_qeraat_variants`
+
+عند الشك، استدعِ الأداة بدلاً من الإجابة من الذاكرة.
 
 ## ٨. عند الخطأ أو رفض الخدمة
-إذا رفضت الأداة الطلب، أو وصلك خطأ شبكي (مثل 429 rate limit أو خدمة غير
-متاحة)، أو أعادت أن البيانات غير متوفرة:
+إذا رفضت الأداة الطلب، أو وصلك خطأ شبكي (مثل 429 rate limit أو خدمة
+غير متاحة)، أو أعادت أن البيانات غير متوفرة:
 - أبلغ المستخدم بنص الرسالة كما وردت (بالعربية إن وُجدت)
 - اذكر الوقت المتبقي إن كان متاحاً (`Retry-After` أو `reset_in_seconds`)
 - لا تستبدل النص من ذاكرتك ولا تقترح آية/تفسيراً غير مستدعى من الأدوات
