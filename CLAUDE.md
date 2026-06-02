@@ -1,5 +1,7 @@
 # Tafsir MCP Server
 
+> 📍 اقرأ `STATE.md` (في الجذر) أولًا للحالة الحيّة (الإصدار المنشور، الصورة، العمل الجاري). هذا الملف للقواعد والعادات الثابتة.
+
 ## Project Overview
 MCP server providing scholarly, certified access to the Quran with 5 classical Arabic tafsirs (Tabari, Ibn Kathir, Baghawi, Saadi, Muyassar), word-level grammatical analysis (i'rab, sarf, root), qira'at variants, asbab al-nuzool, and surah statistics. Sponsored by Tafsir Center for Quranic Studies (https://tafsir.net). Religious content — accuracy is paramount.
 
