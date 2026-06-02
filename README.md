@@ -69,6 +69,14 @@ uv run tafsir-mcp
 
 ---
 
+## 🌐 الاستضافة والنشر
+
+الإنتاج مُستضاف على **Fly.io** (region `bom`/Mumbai) خلف النطاق الرسمي **`https://mcp.tafsir.net/mcp`** (MCP-over-HTTP، فحص صحة على `/health`). أي عميل يدعم HTTP transport يتّصل مباشرةً دون تثبيت محلي.
+
+نسخة Hugging Face Space السابقة أصبحت أرشيفًا خاصًّا (Private، غير حيّة) — انظر `docs/ADR/0001-fly-over-hf-space.md`.
+
+---
+
 ## 🔧 ربط Claude Desktop
 
 أضف إلى `~/Library/Application Support/Claude/claude_desktop_config.json`:
