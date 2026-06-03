@@ -16,7 +16,7 @@
 | Last good image (rollback) | v4 — `tafsir-mcp:deployment-01KRVQKWPN1FTVJH79EZMC8W7H` |
 | Charter | v1.2 (4383 codepoint، توقيع «كيف تفضّل عرضه»؛ include=["tajweed"] مُصحَّح) |
 | Tools / Resources / Prompts | 13 / 3 / 5 |
-| Protocol | MCP 2024-11-05 |
+| Protocol | متفاوَض عليه (السقف 2025-11-25، مرصود حيًّا 2026-06-03 عبر initialize)؛ الكود لا يفرض نسخة — SDK mcp 1.27.1 |
 
 ## الإصدارات عبر المنصّات
 | المنصة | الإصدار | الحالة |

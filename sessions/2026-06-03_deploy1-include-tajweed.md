@@ -73,3 +73,9 @@ uv run python -c "from tafsir.server import SERVER_INSTRUCTIONS as s; print('ك�
 - audit الأرض: تقرير Deploy 1 (A1–A5) في chat history
 - وثائق ذات صلة: `docs/ADR/0003-display-protocol-v1.2.md` (ملاحظة التصحيح) · `STATE.md` §Current Work In Progress
 - الجلسة السابقة: `sessions/2026-06-03_phase8-and-token-incident.md`
+
+## ١١. تحقّق لاحق — نسخة البروتوكول
+2026-06-03: تحقّق read-only من نسخة البروتوكول. initialize حيّ بـ protocolVersion=2025-11-25
+→ الخادم أعاده كما هو ⇒ سقف الإنتاج 2025-11-25 (SDK mcp 1.27.1؛ supported
+[2024-11-05·2025-03-26·2025-06-18·2025-11-25]). الكود لا يفرض نسخة.
+«2024-11-05» السابق في STATE كان صدى عميلٍ قديم — صُحِّح.
