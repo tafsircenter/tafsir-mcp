@@ -1,6 +1,6 @@
 # STATE.md — Tafsir MCP Live State
 
-> آخر تحديث: 2026-06-02 (بعد Repo Context Refactor، قبل Deploy 1)
+> آخر تحديث: 2026-06-03 (بعد هبوط Repo Context Refactor + إغلاق حادث توكن HF، قبل Deploy 1)
 > يُحدَّث في الطور 10 من كل نشر/إصدار. التفاصيل التاريخية في `sessions/` و `docs/ADR/`.
 > اقرأ هذا الملف أولًا للحالة الحيّة، ثم `CLAUDE.md` للقواعد.
 
@@ -21,11 +21,19 @@
 ## الإصدارات عبر المنصّات
 | المنصة | الإصدار | الحالة |
 |---|---|---|
-| GitHub HEAD (main) | 6e85de0 | يطابق Fly v4 |
+| GitHub HEAD (main) | 4923f3a (كان 6e85de0) | الـRefactor الوثائقي هبط فوقه؛ كود Fly v4 لم يتغيّر |
 | PyPI | 1.0.0 | 🔴 متخلّف عن v1.1 و v1.2 |
 | pyproject.toml | 1.0.0 | 🟡 لم يُرفع رقمه بعد |
 | Charter (live) | v1.2 | ✅ |
 | DB schema / quran.db | SHA256 `10e61f61…cc27` | مستقرّ · المحلي ≡ HF ≡ صورة الإنتاج |
+
+## الطور 8 + حادث توكن HF (مُغلق 2026-06-03)
+- **هبوط الـRefactor:** `main` = `4923f3a` (كان `6e85de0`) — 6 commits وثائقية هبطت عبر `--ff-only` (2026-06-03)، بلا merge commit.
+- **حادث أمني مُغلق (2026-06-03):** GitHub Push Protection حجب توكن HF (صلاحية WRITE) كان مضمَّنًا في `docs/context-pack-v3.md` §11.6 (حكاية تسريب تاريخية). عولِج بإعادة كتابة الفرع (استبدال بالنمط، **بلا قيمة سرّ في أي أمر/ملف**): التوكن الكامل = 0 عبر كل commit (تحقّق C4/C5)، §11.6 ورأس ARCHIVED سليمان، pytest 35/35 → دُفع، CI أخضر، دُمج `--ff-only`، purge للبلوب القديم محلّيًّا، وحُذف الفرع.
+- **التوكن مُدوَّر (منجَز):** القديم (WRITE) أُلغي، وأُنشئ بديل fine-grained مقصور على الـdataset ⇒ السرّ المسرَّب ميت.
+- **قرار مُسجَّل:** قُصاصة ميتة (4 أحرف، غير مستغَلّة) في §11.6 تُركت عمدًا — توسيع نمط التنقية كان سيُصيب اسم دالّة تنزيل HF في `data_loader` خطأً.
+- **الإنتاج لم يُمَسّ:** Fly v4 كما هو؛ دمج `main` لا يُطلق نشرًا (`test.yml` اختبار فقط · `publish.yml` عند release يدوي · نشر Fly يدوي بيد المالك).
+- **ثانوي:** ترقية actions (`checkout`/`setup-uv` → Node-24) قبل 2026-06-16.
 
 ## Current Work In Progress
 - ⏸️ **Deploy 1 — include_tajweed fix** (الطور 5 plan معتمد، بانتظار ACK لـ Phase 6 implement بعد هذا الـRefactor)
@@ -53,7 +61,8 @@
 - **ترجمات المختصر = AR/EN/BN** (أعمدة `Mukhtasarar/en/bn` في `QuranTafseer`) — لا EN/FR/ID.
 
 ## آخر جلسة موثَّقة
-`sessions/2026-06-02_repo-context-refactor.md` (هذه المهمة)
+`sessions/2026-06-03_phase8-and-token-incident.md` (هبوط الطور 8 + إغلاق حادث التوكن)
+— السابقة: `sessions/2026-06-02_repo-context-refactor.md`
 
 ## ملاحظات تشغيلية
 - الميزانية المتوقّعة ~$0.07/شهر · حماية: 2 machines max + auto-stop · Spending Limit يُضبط يدويًّا (UI أزاله Fly — تأكيد المالك مطلوب).
