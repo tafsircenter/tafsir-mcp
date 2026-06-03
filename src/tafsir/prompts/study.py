@@ -38,7 +38,7 @@ def study_ayah(
 → أبرز: المعنى، الإعراب، الجذر، الصيغة الصرفية.
 
 ## 5. أحكام التجويد
-استدعِ: `fetch_ayah(surah={surah}, ayah={ayah}, include_tajweed=True)`
+استدعِ: `fetch_ayah(surah={surah}, ayah={ayah}, include=["tajweed"])`
 → اعرض نص التجويد الملوّن مع شرح الأحكام الظاهرة.
 
 ## 6. القراءات
@@ -176,7 +176,7 @@ def tajweed_lesson(
 ## الخطوة 1: نص الآية العادي والمُجوَّد
 استدعِ: `fetch_ayah(surah={surah}, ayah={ayah})`
 → اعرض النص العادي أولاً.
-استدعِ نفس الأداة مع `include_tajweed=True` (إن دعمتها الأداة).
+استدعِ نفس الأداة مع `include=["tajweed"]`.
 → اعرض نص التجويد.
 
 ## الخطوة 2: تحليل الكلمات التجويدية

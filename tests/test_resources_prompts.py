@@ -16,6 +16,7 @@ from tafsir.resources.catalogs import (
     get_surahs_catalog,
     get_tafsirs_catalog,
 )
+from tafsir.server import SERVER_INSTRUCTIONS
 
 
 # ── Resources ─────────────────────────────────────────────────────────────────
@@ -98,3 +99,24 @@ def test_tajweed_lesson_prompt_references_qeraat():
     assert "get_qeraat_variants" in result
     assert "analyze_word" in result
     assert "1:2" in result
+
+
+# ── Guards: fetch_ayah tajweed parameter (Deploy 1) ───────────────────────────
+
+def test_study_ayah_uses_correct_include_param():
+    out = study_ayah(surah=1, ayah=1)
+    assert 'include=["tajweed"]' in out
+    assert "include_tajweed" not in out
+
+
+def test_tajweed_lesson_uses_correct_include_param():
+    out = tajweed_lesson(surah=1, ayah=2)
+    assert 'include=["tajweed"]' in out
+    assert "include_tajweed" not in out
+
+
+def test_server_instructions_no_stale_include_param():
+    # bug guard: charter must not reference the non-existent include_tajweed
+    assert "include_tajweed" not in SERVER_INSTRUCTIONS
+    # v1.2 survival signature must remain intact
+    assert "كيف تفضّل عرضه" in SERVER_INSTRUCTIONS

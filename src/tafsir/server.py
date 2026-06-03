@@ -108,7 +108,7 @@ beginning with `_` are LLM guidance — do not echo them to the user.
 - تفسيراً لم يأت من `fetch_tafsir`
 - سبب نزول لم يأت من `fetch_nuzool_reason`
 - نص آية لم يأت من `fetch_ayah`
-- حكم تجويد لم يأت من `fetch_ayah(include_tajweed=true)`
+- حكم تجويد لم يأت من `fetch_ayah(include=["tajweed"])`
 - حكم قراءة لم يأت من `get_qeraat_variants`
 
 عند الشك، استدعِ الأداة بدلاً من الإجابة من الذاكرة.
