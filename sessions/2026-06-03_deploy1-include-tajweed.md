@@ -79,3 +79,6 @@ uv run python -c "from tafsir.server import SERVER_INSTRUCTIONS as s; print('ك�
 → الخادم أعاده كما هو ⇒ سقف الإنتاج 2025-11-25 (SDK mcp 1.27.1؛ supported
 [2024-11-05·2025-03-26·2025-06-18·2025-11-25]). الكود لا يفرض نسخة.
 «2024-11-05» السابق في STATE كان صدى عميلٍ قديم — صُحِّح.
+
+## ١٢. تقوية حوكمة — .gitignore
+2026-06-03: أُضيف .env إلى .gitignore (تقوية وقائية ضدّ التزام الأسرار) — repo-only، لا إنتاج، لا deploy.
