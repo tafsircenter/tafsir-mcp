@@ -1,6 +1,6 @@
 # STATE.md — Tafsir MCP Live State
 
-> آخر تحديث: 2026-06-03 (بعد هبوط Repo Context Refactor + إغلاق حادث توكن HF، قبل Deploy 1)
+> آخر تحديث: 2026-06-03 (Deploy 1 منشور v5 — تحت مراقبة 24س)
 > يُحدَّث في الطور 10 من كل نشر/إصدار. التفاصيل التاريخية في `sessions/` و `docs/ADR/`.
 > اقرأ هذا الملف أولًا للحالة الحيّة، ثم `CLAUDE.md` للقواعد.
 
@@ -10,18 +10,18 @@
 | Endpoint | https://mcp.tafsir.net/mcp |
 | Health | https://mcp.tafsir.net/health (200) |
 | Region | bom (Mumbai) |
-| Image | `tafsir-mcp:deployment-01KRVQKWPN1FTVJH79EZMC8W7H` |
-| Fly version | v4 |
-| نُشر في | 2026-05-17 19:47 UTC (آخر release؛ لا v5) |
-| Last good image (rollback) | v4 (نفس الجاري — لا نشر بعده) |
-| Charter | v1.2 (4384 codepoint، توقيع «كيف تفضّل عرضه») |
+| Image | `tafsir-mcp:deployment-01KT6SD1MAJHAQ4NZ13V4FRMY3` |
+| Fly version | v5 (كان v4) |
+| نُشر في | 2026-06-03 ~13:07 UTC (Deploy 1) |
+| Last good image (rollback) | v4 — `tafsir-mcp:deployment-01KRVQKWPN1FTVJH79EZMC8W7H` |
+| Charter | v1.2 (4383 codepoint، توقيع «كيف تفضّل عرضه»؛ include=["tajweed"] مُصحَّح) |
 | Tools / Resources / Prompts | 13 / 3 / 5 |
 | Protocol | MCP 2024-11-05 |
 
 ## الإصدارات عبر المنصّات
 | المنصة | الإصدار | الحالة |
 |---|---|---|
-| GitHub HEAD (main) | 4923f3a (كان 6e85de0) | الـRefactor الوثائقي هبط فوقه؛ كود Fly v4 لم يتغيّر |
+| GitHub HEAD (main) | 1a6fb74 | Deploy 1 (include_tajweed) هبط ونُشر v5 |
 | PyPI | 1.0.0 | 🔴 متخلّف عن v1.1 و v1.2 |
 | pyproject.toml | 1.0.0 | 🟡 لم يُرفع رقمه بعد |
 | Charter (live) | v1.2 | ✅ |
@@ -36,18 +36,12 @@
 - **ثانوي:** ترقية actions (`checkout`/`setup-uv` → Node-24) قبل 2026-06-16.
 
 ## Current Work In Progress
-- ⏸️ **Deploy 1 — include_tajweed fix** (الطور 5 plan معتمد، بانتظار ACK لـ Phase 6 implement بعد هذا الـRefactor)
-  - **الملفات:**
-    - `src/tafsir/prompts/study.py` — السطران 41 و 179 (`study_ayah` + `tajweed_lesson`)
-    - `src/tafsir/server.py` — السطر 111 (`SERVER_INSTRUCTIONS` بند 7)
-  - **التغيير:** استبدال `include_tajweed=True` بـ `include=["tajweed"]` (الصيغة الصحيحة لتوقيع الأداة `include: list[str]`)
-  - **الاختبارات:** 38/38 = 35 أساس + 3 حُرّاس:
-    - حارس بقاء v1.2: وجود «كيف تفضّل عرضه» في `SERVER_INSTRUCTIONS`
-    - حارس غياب: `include_tajweed` غير موجود في `study_ayah`/`tajweed_lesson`/`SERVER_INSTRUCTIONS`
-    - regression: `grep -rc include_tajweed src/` = 0
-  - **النشر:** فرع نظيف → `--ff-only` → push → `flyctl deploy` → 24س مراقبة
-  - **rollback:** `flyctl deploy --image tafsir-mcp:deployment-01KRVQKWPN1FTVJH79EZMC8W7H` (v4)
-  - الخطة الكاملة محفوظة في chat history للجلسة الحالية؛ تُستأنف من بوابة Phase 6.
+- 🚀 **Deploy 1 — include_tajweed fix: منشور (v5)، تحت مراقبة 24س** (commitان: `aa8dfad` إصلاح · `1a6fb74` توثيق)
+  - **التغيير:** `include_tajweed=True/true` → `include=["tajweed"]` في `study.py` (×2) و`server.py` (بند 7).
+  - **التحقّق الإنتاجي (2026-06-03 ~13:07 UTC):** `include_tajweed` غائب · `include=["tajweed"]` حاضر · الميثاق 4383 codepoint · توقيع v1.2 سليم · 13 أداة · `/health` 200 · checks passing.
+  - **نافذة المراقبة:** بدأت ~2026-06-03 13:07 UTC، تنتهي ~2026-06-04 13:07 UTC. خطّ الأساس: لا أخطاء/429/Traceback.
+  - **لا يُختم «منجَز» إلا بعد 24س نظيفة** (الطور 12)؛ بعدها يُنقل للأرشيف ويُحدَّث هذا القسم.
+  - **rollback خلال المراقبة:** `flyctl deploy --image tafsir-mcp:deployment-01KRVQKWPN1FTVJH79EZMC8W7H` (v4).
 
 ## البنود المؤجَّلة (بعد Deploy 1)
 1. **Step 2 — Repo hygiene batch:** `.env` في `.gitignore` + bump `pyproject` 1.0.0→1.2.0.
@@ -61,8 +55,8 @@
 - **ترجمات المختصر = AR/EN/BN** (أعمدة `Mukhtasarar/en/bn` في `QuranTafseer`) — لا EN/FR/ID.
 
 ## آخر جلسة موثَّقة
-`sessions/2026-06-03_phase8-and-token-incident.md` (هبوط الطور 8 + إغلاق حادث التوكن)
-— السابقة: `sessions/2026-06-02_repo-context-refactor.md`
+`sessions/2026-06-03_deploy1-include-tajweed.md` (Deploy 1 — منشور v5، تحت مراقبة)
+— السابقة: `sessions/2026-06-03_phase8-and-token-incident.md`
 
 ## ملاحظات تشغيلية
 - الميزانية المتوقّعة ~$0.07/شهر · حماية: 2 machines max + auto-stop · Spending Limit يُضبط يدويًّا (UI أزاله Fly — تأكيد المالك مطلوب).
