@@ -25,3 +25,8 @@ scripts/.db_sha256
 .Spotlight-V100
 .Trashes
 *.bak
+
+# Local secrets / environment — never commit
+.env
+.env.*
+!.env.example
