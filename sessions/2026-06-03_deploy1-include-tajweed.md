@@ -82,3 +82,8 @@ uv run python -c "from tafsir.server import SERVER_INSTRUCTIONS as s; print('ك�
 
 ## ١٢. تقوية حوكمة — .gitignore
 2026-06-03: أُضيف .env إلى .gitignore (تقوية وقائية ضدّ التزام الأسرار) — repo-only، لا إنتاج، لا deploy.
+
+## ١٣. توثيق — PRD
+2026-06-04: أُضيف docs/PRD.md — وثيقة متطلبات مفصّلة مبنيّة من أدلّة المستودع (doc-only).
+رُصد خلاله تعارض DB_SIZE_MB=214 مع الحجم الفعليّ ~223.5MiB → backlog (إصلاح كود منفصل،
+مرشَّح للضمّ إلى Step 2).
