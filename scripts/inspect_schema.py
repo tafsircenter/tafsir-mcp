@@ -2,7 +2,6 @@
 
 import os
 import sqlite3
-import sys
 
 DB_PATH = os.environ.get("QURAN_DB_PATH", "data/quran.db")
 SEP = "─" * 70
