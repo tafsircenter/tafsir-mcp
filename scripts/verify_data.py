@@ -1,5 +1,6 @@
 """Verify integrity of quran.db against expected row counts."""
 
+import os
 import sqlite3
 import sys
 

@@ -1,6 +1,5 @@
 """Extended tool tests: word, qeraat, search, stats — 15 tests."""
 
-import pytest
 
 from tafsir.tools.word import get_root_statistics, get_word_analysis, search_by_root
 from tafsir.tools.qeraat import compare_qeraat
@@ -71,7 +70,6 @@ def test_qeraat_no_variants_for_fatiha_word_2():
 def test_search_text_finds_bismillah():
     results = search_quran_text("بسم الله")
     assert len(results) >= 1
-    surahs = [r["surah"] for r in results]
     ayahs_in_s1 = [r["ayah"] for r in results if r["surah"] == 1]
     assert 1 in ayahs_in_s1
 

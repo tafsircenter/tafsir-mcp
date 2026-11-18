@@ -58,3 +58,7 @@ asyncio_mode = "auto"
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+
+[[tool.mypy.overrides]]
+module = ["pyarabic", "pyarabic.*"]
+ignore_missing_imports = true

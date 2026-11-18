@@ -2,7 +2,6 @@
 
 import json
 
-import pytest
 
 from tafsir.prompts.study import (
     compare_tafsirs,
